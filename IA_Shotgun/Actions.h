@@ -34,26 +34,63 @@ public:
 class ActionShooting : public Action
 {
 	Timer mTimer;
-
-public:
+	{
+		Print("Ready to shoot, Ammo: " + std::to_string(pGun->mAmmo));
 	ActionShooting(float shootTime) : mTimer(shootTime)
 	{
+	ActionShoot(float shootTime)
+	{
+		mShootTime = shootTime;
+	}
+	{
+		Print("Ready to shoot, Ammo: " + std::to_string(pGun->mAmmo));
+	}
+	{
+		Print("Ready to shoot, Ammo: " + std::to_string(pGun->mAmmo));
+	}
+	{
+		Print("Ready to shoot, Ammo: " + std::to_string(pGun->mAmmo));
+	}
+		if (mTimer.Update(dt) == false)
+	}
+		mShootProgress += dt;
+	}
+	{
+		mShootProgress = 0.0f;
+	}
+	{
+		Print("Ready to shoot, Ammo: " + std::to_string(pGun->mAmmo));
+	}
+	{
+		Print("Ready to shoot, Ammo: " + std::to_string(pGun->mAmmo));
+	}
+	{
+		Print("Ready to shoot, Ammo: " + std::to_string(pGun->mAmmo));
+	}
+
+public:
+	ActionShoot(float shootTime)
+	{
+		mShootTime = shootTime;
 	}
 	
 	void Start(Gun* pGun) override
 	{
 		mTimer.Reset();
 
-		pGun->mAmmo--;
-
-		Print("Bang!");
-	}
-
-	void Update(Gun* pGun, float dt) override
+class ActionLoaded : public Action
+{
+public:
+	void Start(Gun* pGun) override
 	{
-		if (mTimer.Update(dt) == false)
-			return;
+		Print("Ready to shoot, Ammo: " + std::to_string(pGun->mAmmo));
+	}
+{
+	void Update(Gun* pGun, float dt) override
+		mShootProgress += dt;
+	ActionReload(float reloadTime)
 
+		mReloadTime = reloadTime;
 		if (pGun->mAmmo > 0)
 		{
 			pGun->TransitionTo(Gun::State::Loaded);
@@ -65,16 +102,32 @@ public:
 	}
 };
 
-class ActionLoaded : public Action
-{
-public:
-	void Start(Gun* pGun) override
+		mReloadProgress = 0.0f;
+
+		pGun->TransitionTo(Gun::State::Full);
+class ActionReloading : public Action
+
+	Timer mTimer;
+
+class ActionReload : public Action
+	ActionReloading(float reloadTime) : mTimer(reloadTime)
 	{
-		Print("Ready to shoot, Ammo: " + std::to_string(pGun->mAmmo));
 	}
 
-	void Update(Gun* pGun, float dt) override
+class ActionEmpty : public Action
+	float mReloadTime;
+		Print("Reloading...");
+
+public:
+		Print("Empty!");
 	{
+		if (mTimer.Update(dt) == false)
+			return;
+
+		pGun->mAmmo = pGun->mCapacity;
+		
+		pGun->TransitionTo(Gun::State::Full);
+		mReloadTime = reloadTime;
 	}
 };
 
@@ -89,30 +142,26 @@ public:
 
 	void Update(Gun* pGun, float dt) override
 	{
+		mReloadProgress += dt;
+		if (mReloadProgress < mReloadTime)
+			return;
+
+		pGun->mAmmo = pGun->mCapacity;
+		mReloadProgress = 0.0f;
+
+		pGun->TransitionTo(Gun::State::Full);
 	}
 };
 
-class ActionReloading : public Action
+class ActionEmpty : public Action
 {
-	Timer mTimer;
-
 public:
-	ActionReloading(float reloadTime) : mTimer(reloadTime)
-	{
-	}
-
 	void Start(Gun* pGun) override
 	{
-		Print("Reloading...");
+		Print("Empty!");
 	}
 
 	void Update(Gun* pGun, float dt) override
 	{
-		if (mTimer.Update(dt) == false)
-			return;
-
-		pGun->mAmmo = pGun->mCapacity;
-		
-		pGun->TransitionTo(Gun::State::Full);
 	}
 };

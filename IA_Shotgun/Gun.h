@@ -14,6 +14,7 @@ public:
         Loaded,
         Empty,
         Reloading,
+        Unloading,
 
         Count
     };
@@ -33,7 +34,7 @@ private:
 	void SetTransition(State from, State to, bool value) { mTransitions[(int)from][(int)to] = value; }
 
 public:
-    Gun(int capacity, float reloadTime = 2.0f, float shootTime = 0.5f);
+    Gun(int capacity, float reloadTime = 2.0f, float shootTime = 0.5f, float unloadTime = 0.75f);
 
     void Update(float deltaTime);
 
@@ -44,4 +45,5 @@ public:
 	friend class ActionLoaded;
 	friend class ActionEmpty;
 	friend class ActionReloading;
+    friend class ActionUnloading;
 };

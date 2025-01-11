@@ -29,6 +29,11 @@ void HandleInput(Gun& gun, bool& running)
         running = false;
         break;
     }
+    case 'u':
+    {
+		gun.TransitionTo(Gun::State::Unloading);
+		break;
+    }
     default:
     {
         break;
