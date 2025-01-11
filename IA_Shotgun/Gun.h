@@ -10,9 +10,9 @@ public:
     enum class State
     {
         Full,
+        Shooting,
         Loaded,
         Empty,
-        Shooting,
         Reloading,
 
         Count
@@ -40,8 +40,8 @@ public:
     bool TransitionTo(State newState);
 
     friend class ActionFull;
+    friend class ActionShooting;
 	friend class ActionLoaded;
-	friend class ActionShoot;
 	friend class ActionEmpty;
-	friend class ActionReload;
+	friend class ActionReloading;
 };

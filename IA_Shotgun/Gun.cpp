@@ -7,10 +7,10 @@ Gun::Gun(int capacity, float reloadTime, float shootTime)
     mCapacity = capacity;
 
 	mActions[(int)State::Full] = new ActionFull();
+	mActions[(int)State::Shooting] = new ActionShooting(shootTime);
     mActions[(int)State::Loaded] = new ActionLoaded();
-	mActions[(int)State::Shooting] = new ActionShoot(shootTime);
 	mActions[(int)State::Empty] = new ActionEmpty();
-	mActions[(int)State::Reloading] = new ActionReload(reloadTime);
+	mActions[(int)State::Reloading] = new ActionReloading(reloadTime);
 	
 	for (int i = 0; i < STATE_COUNT; ++i)
 	{
