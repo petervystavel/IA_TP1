@@ -31,7 +31,6 @@ void HandleInput(Gun& gun, bool& running)
     }
     default:
     {
-        std::cout << "Invalid input\n";
         break;
     }
     }
