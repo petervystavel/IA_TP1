@@ -55,6 +55,8 @@ public:
 
 	void Start(Gun* pGun) override
 	{
+		pGun->mAmmo--;
+	
 		Print("Bang!");
 	}
 

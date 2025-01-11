@@ -32,21 +32,3 @@ bool Gun::TransitionTo(State newState)
 
     return false;
 }
-
-bool Gun::Shoot()
-{
-    if (TransitionTo(State::Shooting) == false)
-        return false;
-
-    mAmmo--;
-
-    return true;
-}
-
-bool Gun::Reload()
-{
-    if (TransitionTo(State::Reloading) == false)
-        return false;
-
-    return true;
-}

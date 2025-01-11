@@ -45,10 +45,6 @@ public:
 
     bool TransitionTo(State newState);
 
-    bool Shoot();
-
-    bool Reload();
-
     friend class ActionFull;
 	friend class ActionLoaded;
 	friend class ActionShoot;
