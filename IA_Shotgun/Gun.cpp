@@ -16,6 +16,31 @@ Gun::Gun(int capacity, float reloadTime, float shootTime)
     mShootTime = shootTime;
 
     Print("Ready to shoot, Ammo: " + std::to_string(mAmmo));
+
+	for (int i = 0; i < STATE_COUNT; i++)
+	{
+		for (int j = 0; j < STATE_COUNT; j++)
+		{
+			mTransitions[i][j] = 0;
+		}
+	}
+
+	SetTransition(State::Full, State::Shooting, true);
+
+    SetTransition(State::Shooting, State::Loaded, true);
+    SetTransition(State::Shooting, State::Empty, true);
+
+	SetTransition(State::Loaded, State::Shooting, true);
+	SetTransition(State::Loaded, State::Reloading, true);
+
+	SetTransition(State::Empty, State::Reloading, true);
+
+	SetTransition(State::Reloading, State::Full, true);
+}
+
+void Gun::SetTransition(State from, State to, bool value)
+{
+	mTransitions[(int)from][(int)to] = value;
 }
 
 void Gun::Update(float deltaTime)
