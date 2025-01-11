@@ -33,7 +33,7 @@ private:
     bool mTransitions[STATE_COUNT][STATE_COUNT];
 
 private:
-	void SetTransition(State from, State to, bool value);
+    void SetTransition(State from, State to, bool value) { mTransitions[(int)from][(int)to] = value; }
 
 public:
     Gun(int capacity, float reloadTime = 2.0f, float shootTime = 0.5f);

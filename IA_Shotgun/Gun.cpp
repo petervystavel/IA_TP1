@@ -38,11 +38,6 @@ Gun::Gun(int capacity, float reloadTime, float shootTime)
 	SetTransition(State::Reloading, State::Full, true);
 }
 
-void Gun::SetTransition(State from, State to, bool value)
-{
-	mTransitions[(int)from][(int)to] = value;
-}
-
 void Gun::Update(float deltaTime)
 {
     if (mState == State::Reloading)
