@@ -24,6 +24,11 @@ void HandleInput(Gun& gun, bool& running)
         gun.Reload();
         break;
     }
+	case 'b':
+	{
+		gun.Bash();
+		break;
+	}
     case 'q':
     {
         running = false;

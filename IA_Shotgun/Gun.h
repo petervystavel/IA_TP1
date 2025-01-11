@@ -14,15 +14,21 @@ private:
     float mShootTime;
     float mShootProgress = 0.f;
 
+    float mBashTime;
+    float mBashProgress = 0.f;
+
     bool mIsReloading = false;
     bool mIsShooting = false;
+    bool mIsBashing = false;
 
 public:
-    Gun(int capacity, float reloadTime = 2.0f, float shootTime = 0.5f);
+    Gun(int capacity, float reloadTime = 2.0f, float shootTime = 0.5f, float bashTime = 1.f);
 
     void Update(float deltaTime);
 
     bool Shoot();
 
     bool Reload();
+
+    bool Bash();
 };
