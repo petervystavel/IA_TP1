@@ -24,9 +24,9 @@ void HandleInput(Gun& gun, bool& running)
         gun.Reload();
         break;
     }
-	case 'b':
+	case 'u':
 	{
-		gun.Bash();
+		gun.Unload();
 		break;
 	}
     case 'q':
@@ -36,7 +36,6 @@ void HandleInput(Gun& gun, bool& running)
     }
     default:
     {
-        std::cout << "Invalid input\n";
         break;
     }
     }

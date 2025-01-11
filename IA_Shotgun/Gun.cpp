@@ -8,13 +8,13 @@ inline void Print(const std::string& message)
     std::cout << message << std::endl;
 }
 
-Gun::Gun(int capacity, float reloadTime, float shootTime, float bashTime)
+Gun::Gun(int capacity, float reloadTime, float shootTime, float unloadTime)
 {
     mAmmo = capacity;
     mCapacity = capacity;
     mReloadTime = reloadTime;
     mShootTime = shootTime;
-	mBashTime = bashTime;
+	mUnloadTime = unloadTime;
 
     Print("Ready to shoot, Ammo: " + std::to_string(mAmmo));
 }
@@ -51,15 +51,16 @@ void Gun::Update(float deltaTime)
             }
         }
     }
-    else if (mIsBashing)
+    else if (mIsUnloading)
     {
-        mBashProgress += deltaTime;
-        if (mBashProgress >= mBashTime)
+        mUnloadProgress += deltaTime;
+        if (mUnloadProgress >= mUnloadTime)
         {
-            mBashProgress = 0.0f;
-            mIsBashing = false;
+            mUnloadProgress = 0.0f;
+            mIsUnloading = false;
+			mAmmo = 0;
 
-            Print("Ready to shoot, Ammo: " + std::to_string(mAmmo));
+            Print("Empty !");
         }
     }
 }
@@ -72,7 +73,7 @@ bool Gun::Shoot()
     if (mIsShooting)
         return false;
 
-    if (mIsBashing)
+    if (mIsUnloading)
         return false;
 
     if (mAmmo == 0) 
@@ -94,7 +95,7 @@ bool Gun::Reload()
     if (mIsReloading)
         return false;
 
-    if (mIsBashing)
+    if (mIsUnloading)
         return false;
 
     if (mAmmo == mCapacity)
@@ -107,7 +108,7 @@ bool Gun::Reload()
     return true;
 }
 
-bool Gun::Bash()
+bool Gun::Unload()
 {
     if (mIsShooting)
         return false;
@@ -115,12 +116,15 @@ bool Gun::Bash()
     if (mIsReloading)
         return false;
 
-    if(mIsBashing)
+    if(mIsUnloading)
 		return false;
 
-    Print("Bashing...");
+	if (mAmmo == 0)
+		return false;
 
-    mIsBashing = true;
+    Print("Unloading...");
+
+    mIsUnloading = true;
 
     return true;
 }
