@@ -1,6 +1,6 @@
-#include "Gun1.h"
+#include "Gun.h"
 
-#include <string>
+#include <iostream>
 
 inline void Print(const std::string& message)
 {
@@ -8,7 +8,7 @@ inline void Print(const std::string& message)
     std::cout << message << std::endl;
 }
 
-Gun1::Gun1(int capacity, float reloadTime, float shootTime)
+Gun::Gun(int capacity, float reloadTime, float shootTime)
 {
     mAmmo = capacity;
     mCapacity = capacity;
@@ -18,73 +18,69 @@ Gun1::Gun1(int capacity, float reloadTime, float shootTime)
     Print("Ready to shoot, Ammo: " + std::to_string(mAmmo));
 }
 
-void Gun1::Update(float deltaTime)
+void Gun::Update(float deltaTime)
 {
-    if (mIsReloading)
+    if (mState == State::Reloading)
     {
         mReloadProgress += deltaTime;
         if (mReloadProgress >= mReloadTime)
         {
             mAmmo = mCapacity;
             mReloadProgress = 0.0f;
-            mIsReloading = false;
 
             Print("Ready to shoot, Ammo: " + std::to_string(mAmmo));
+            TransitionTo(State::Full);
         }
     }
-    else if (mIsShooting)
+    else if (mState == State::Shooting)
     {
         mShootProgress += deltaTime;
         if (mShootProgress >= mShootTime)
         {
             mShootProgress = 0.0f;
-            mIsShooting = false;
-
-            if (mAmmo == 0) 
-            {
-                Print("Empty !");
-            }
-            else 
+            if (mAmmo > 0)
             {
                 Print("Ready to shoot, Ammo: " + std::to_string(mAmmo));
+                TransitionTo(State::Loaded);
+            }
+            else
+            {
+                Print("Empty!");
+                TransitionTo(State::Empty);
             }
         }
     }
 }
 
-bool Gun1::Shoot()
+bool Gun::TransitionTo(State newState)
 {
-    if (mIsReloading)
-        return false;
+    if (mTransitions[(int)mState][(int)newState])
+    {
+        mState = newState;
+        return true;
+    }
 
-    if (mIsShooting)
-        return false;
+    return false;
+}
 
-    if (mAmmo == 0) 
+bool Gun::Shoot()
+{
+    if (TransitionTo(State::Shooting) == false)
         return false;
 
     Print("Bang!");
 
-    mIsShooting = true;
     mAmmo--;
 
     return true;
 }
 
-bool Gun1::Reload()
+bool Gun::Reload()
 {
-    if (mIsShooting)
-        return false;
-
-    if (mIsReloading)
-        return false;
-
-    if (mAmmo == mCapacity)
+    if (TransitionTo(State::Reloading) == false)
         return false;
 
     Print("Reloading...");
-
-    mIsReloading = true;
 
     return true;
 }

@@ -2,7 +2,7 @@
 
 #include <string>
 
-class Gun2
+class Gun
 {
 public:
     enum class State
@@ -41,7 +41,7 @@ private:
 	};
 
 public:
-    Gun2(int capacity, float reloadTime = 2.0f, float shootTime = 0.5f);
+    Gun(int capacity, float reloadTime = 2.0f, float shootTime = 0.5f);
 
     void Update(float deltaTime);
 
