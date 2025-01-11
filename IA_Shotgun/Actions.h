@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Gun.h"
+#include "Timer.h"
+
 #include <iostream>
 
 inline void Print(const std::string& message)
@@ -31,17 +33,17 @@ public:
 
 class ActionShooting : public Action
 {
-	float mTime;
-	float mProgress = 0.f;
+	Timer mTimer;
 
 public:
-	ActionShooting(float shootTime)
+	ActionShooting(float shootTime) : mTimer(shootTime)
 	{
-		mTime = shootTime;
 	}
-
+	
 	void Start(Gun* pGun) override
 	{
+		mTimer.Reset();
+
 		pGun->mAmmo--;
 
 		Print("Bang!");
@@ -49,11 +51,9 @@ public:
 
 	void Update(Gun* pGun, float dt) override
 	{
-		mProgress += dt;
-		if (mProgress < mTime)
+		if (mTimer.Update(dt) == false)
 			return;
 
-		mProgress = 0.0f;
 		if (pGun->mAmmo > 0)
 		{
 			pGun->TransitionTo(Gun::State::Loaded);
@@ -94,13 +94,11 @@ public:
 
 class ActionReloading : public Action
 {
-	float mTime;
-	float mProgress = 0.f;
+	Timer mTimer;
 
 public:
-	ActionReloading(float reloadTime)
+	ActionReloading(float reloadTime) : mTimer(reloadTime)
 	{
-		mTime = reloadTime;
 	}
 
 	void Start(Gun* pGun) override
@@ -110,13 +108,11 @@ public:
 
 	void Update(Gun* pGun, float dt) override
 	{
-		mProgress += dt;
-		if (mProgress < mTime)
+		if (mTimer.Update(dt) == false)
 			return;
 
 		pGun->mAmmo = pGun->mCapacity;
-		mProgress = 0.0f;
-
+		
 		pGun->TransitionTo(Gun::State::Full);
 	}
 };
