@@ -42,6 +42,7 @@ public:
 
 	void Start(Gun* pGun) override
 	{
+		Print("Bang!");
 		mTimer.Reset();
 	}
 
