@@ -8,9 +8,9 @@ public:
     enum class State
     {
         Full,
+        Shooting,
         Loaded,
         Empty,
-        Shooting,
         Reloading,
 
         Count
