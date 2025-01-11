@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Gun3.h"
+#include "Gun.h"
 #include <iostream>
 
 inline void Print(const std::string& message)
@@ -12,19 +12,19 @@ inline void Print(const std::string& message)
 class Action
 {
 public:
-	virtual void Start(Gun3* pGun) = 0;
-	virtual void Update(Gun3* pGun, float dt) = 0;
+	virtual void Start(Gun* pGun) = 0;
+	virtual void Update(Gun* pGun, float dt) = 0;
 };
 
 class ActionFull : public Action
 {
 public:
-	void Start(Gun3* pGun) override
+	void Start(Gun* pGun) override
 	{
 		Print("Ready to shoot, Ammo: " + std::to_string(pGun->mAmmo));
 	}
 
-	void Update(Gun3* pGun, float dt) override
+	void Update(Gun* pGun, float dt) override
 	{
 	}
 };
@@ -32,12 +32,12 @@ public:
 class ActionLoaded : public Action
 {
 public:
-	void Start(Gun3* pGun) override
+	void Start(Gun* pGun) override
 	{
 		Print("Ready to shoot, Ammo: " + std::to_string(pGun->mAmmo));
 	}
 
-	void Update(Gun3* pGun, float dt) override
+	void Update(Gun* pGun, float dt) override
 	{
 	}
 };
@@ -53,12 +53,12 @@ public:
 		mShootTime = shootTime;
 	}
 
-	void Start(Gun3* pGun) override
+	void Start(Gun* pGun) override
 	{
 		Print("Bang!");
 	}
 
-	void Update(Gun3* pGun, float dt) override
+	void Update(Gun* pGun, float dt) override
 	{
 		mShootProgress += dt;
 		if (mShootProgress < mShootTime)
@@ -67,11 +67,11 @@ public:
 		mShootProgress = 0.0f;
 		if (pGun->mAmmo > 0)
 		{
-			pGun->TransitionTo(Gun3::State::Loaded);
+			pGun->TransitionTo(Gun::State::Loaded);
 		}
 		else
 		{
-			pGun->TransitionTo(Gun3::State::Empty);
+			pGun->TransitionTo(Gun::State::Empty);
 		}
 	}
 };
@@ -87,12 +87,12 @@ public:
 		mReloadTime = reloadTime;
 	}
 
-	void Start(Gun3* pGun) override
+	void Start(Gun* pGun) override
 	{
 		Print("Reloading...");
 	}
 
-	void Update(Gun3* pGun, float dt) override
+	void Update(Gun* pGun, float dt) override
 	{
 		mReloadProgress += dt;
 		if (mReloadProgress < mReloadTime)
@@ -101,19 +101,19 @@ public:
 		pGun->mAmmo = pGun->mCapacity;
 		mReloadProgress = 0.0f;
 
-		pGun->TransitionTo(Gun3::State::Full);
+		pGun->TransitionTo(Gun::State::Full);
 	}
 };
 
 class ActionEmpty : public Action
 {
 public:
-	void Start(Gun3* pGun) override
+	void Start(Gun* pGun) override
 	{
 		Print("Empty!");
 	}
 
-	void Update(Gun3* pGun, float dt) override
+	void Update(Gun* pGun, float dt) override
 	{
 	}
 };

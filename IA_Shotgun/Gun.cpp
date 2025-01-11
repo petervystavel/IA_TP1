@@ -1,7 +1,7 @@
-#include "Gun3.h"
+#include "Gun.h"
 #include "Actions.h"
 
-Gun3::Gun3(int capacity, float reloadTime, float shootTime)
+Gun::Gun(int capacity, float reloadTime, float shootTime)
 {
     mAmmo = capacity;
     mCapacity = capacity;
@@ -15,12 +15,12 @@ Gun3::Gun3(int capacity, float reloadTime, float shootTime)
 	TransitionTo(State::Full);
 }
 
-void Gun3::Update(float deltaTime)
+void Gun::Update(float deltaTime)
 {
 	mActions[(int)mState]->Update(this, deltaTime);
 }
 
-bool Gun3::TransitionTo(State newState)
+bool Gun::TransitionTo(State newState)
 {
     if (mTransitions[(int)mState][(int)newState])
     {
@@ -33,7 +33,7 @@ bool Gun3::TransitionTo(State newState)
     return false;
 }
 
-bool Gun3::Shoot()
+bool Gun::Shoot()
 {
     if (TransitionTo(State::Shooting) == false)
         return false;
@@ -43,7 +43,7 @@ bool Gun3::Shoot()
     return true;
 }
 
-bool Gun3::Reload()
+bool Gun::Reload()
 {
     if (TransitionTo(State::Reloading) == false)
         return false;

@@ -4,7 +4,7 @@
 
 class Action;
 
-class Gun3
+class Gun
 {
 public:
     enum class State
@@ -39,7 +39,7 @@ private:
 	Action* mActions[STATE_COUNT];
 
 public:
-    Gun3(int capacity, float reloadTime = 2.0f, float shootTime = 0.5f);
+    Gun(int capacity, float reloadTime = 2.0f, float shootTime = 0.5f);
 
     void Update(float deltaTime);
 
