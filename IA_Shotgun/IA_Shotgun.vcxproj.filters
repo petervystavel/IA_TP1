@@ -13,45 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Partie3">
-      <UniqueIdentifier>{b649f79a-3ec8-49e1-a35e-d8d529b44fe9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Partie1">
       <UniqueIdentifier>{d239dbd3-9b6f-4c25-8805-e26a11264cf5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Partie2">
-      <UniqueIdentifier>{67ba3d63-1733-4d68-9a2d-ea1fd55e2915}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Gun3.cpp">
-      <Filter>Source Files\Partie3</Filter>
-    </ClCompile>
-    <ClCompile Include="Gun1.cpp">
+    <ClCompile Include="Gun.cpp">
       <Filter>Source Files\Partie1</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Gun2.cpp">
-      <Filter>Source Files\Partie2</Filter>
-    </ClCompile>
-    <ClCompile Include="Actions.cpp">
-      <Filter>Source Files\Partie3</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Gun3.h">
-      <Filter>Source Files\Partie3</Filter>
-    </ClInclude>
-    <ClInclude Include="Gun1.h">
+    <ClInclude Include="Gun.h">
       <Filter>Source Files\Partie1</Filter>
-    </ClInclude>
-    <ClInclude Include="Gun2.h">
-      <Filter>Source Files\Partie2</Filter>
-    </ClInclude>
-    <ClInclude Include="Actions.h">
-      <Filter>Source Files\Partie3</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

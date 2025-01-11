@@ -1,4 +1,4 @@
-#include "Gun1.h"
+#include "Gun.h"
 
 #include <string>
 
@@ -8,7 +8,7 @@ inline void Print(const std::string& message)
     std::cout << message << std::endl;
 }
 
-Gun1::Gun1(int capacity, float reloadTime, float shootTime)
+Gun::Gun(int capacity, float reloadTime, float shootTime)
 {
     mAmmo = capacity;
     mCapacity = capacity;
@@ -18,7 +18,7 @@ Gun1::Gun1(int capacity, float reloadTime, float shootTime)
     Print("Ready to shoot, Ammo: " + std::to_string(mAmmo));
 }
 
-void Gun1::Update(float deltaTime)
+void Gun::Update(float deltaTime)
 {
     if (mIsReloading)
     {
@@ -52,7 +52,7 @@ void Gun1::Update(float deltaTime)
     }
 }
 
-bool Gun1::Shoot()
+bool Gun::Shoot()
 {
     if (mIsReloading)
         return false;
@@ -71,7 +71,7 @@ bool Gun1::Shoot()
     return true;
 }
 
-bool Gun1::Reload()
+bool Gun::Reload()
 {
     if (mIsShooting)
         return false;

@@ -3,22 +3,7 @@
 
 #include <conio.h>
 
-#define GUN1
-
-#ifdef GUN1
-#include "gun1.h"
-typedef Gun1 Gun;
-#endif
-
-#ifdef GUN2
-#include "gun2.h"
-typedef Gun2 Gun;
-#endif
-
-#ifdef GUN3
-#include "gun3.h"
-typedef Gun3 Gun;
-#endif
+#include "gun.h"
 
 void HandleInput(Gun& gun, bool& running)
 {

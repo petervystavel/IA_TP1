@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-class Gun1
+class Gun
 {
 private:
     int mAmmo;
@@ -18,7 +18,7 @@ private:
     bool mIsShooting = false;
 
 public:
-    Gun1(int capacity, float reloadTime = 2.0f, float shootTime = 0.5f);
+    Gun(int capacity, float reloadTime = 2.0f, float shootTime = 0.5f);
 
     void Update(float deltaTime);
 
