@@ -29,6 +29,42 @@ public:
 	}
 };
 
+class ActionShooting : public Action
+{
+	float mTime;
+	float mProgress = 0.f;
+
+public:
+	ActionShooting(float shootTime)
+	{
+		mTime = shootTime;
+	}
+
+	void Start(Gun* pGun) override
+	{
+		pGun->mAmmo--;
+
+		Print("Bang!");
+	}
+
+	void Update(Gun* pGun, float dt) override
+	{
+		mProgress += dt;
+		if (mProgress < mTime)
+			return;
+
+		mProgress = 0.0f;
+		if (pGun->mAmmo > 0)
+		{
+			pGun->TransitionTo(Gun::State::Loaded);
+		}
+		else
+		{
+			pGun->TransitionTo(Gun::State::Empty);
+		}
+	}
+};
+
 class ActionLoaded : public Action
 {
 public:
@@ -42,70 +78,6 @@ public:
 	}
 };
 
-class ActionShoot : public Action
-{
-	float mShootTime;
-	float mShootProgress = 0.f;
-
-public:
-	ActionShoot(float shootTime)
-	{
-		mShootTime = shootTime;
-	}
-
-	void Start(Gun* pGun) override
-	{
-		pGun->mAmmo--;
-	
-		Print("Bang!");
-	}
-
-	void Update(Gun* pGun, float dt) override
-	{
-		mShootProgress += dt;
-		if (mShootProgress < mShootTime)
-			return;
-
-		mShootProgress = 0.0f;
-		if (pGun->mAmmo > 0)
-		{
-			pGun->TransitionTo(Gun::State::Loaded);
-		}
-		else
-		{
-			pGun->TransitionTo(Gun::State::Empty);
-		}
-	}
-};
-
-class ActionReload : public Action
-{
-	float mReloadTime;
-	float mReloadProgress = 0.f;
-
-public:
-	ActionReload(float reloadTime)
-	{
-		mReloadTime = reloadTime;
-	}
-
-	void Start(Gun* pGun) override
-	{
-		Print("Reloading...");
-	}
-
-	void Update(Gun* pGun, float dt) override
-	{
-		mReloadProgress += dt;
-		if (mReloadProgress < mReloadTime)
-			return;
-
-		pGun->mAmmo = pGun->mCapacity;
-		mReloadProgress = 0.0f;
-
-		pGun->TransitionTo(Gun::State::Full);
-	}
-};
 
 class ActionEmpty : public Action
 {
@@ -117,5 +89,64 @@ public:
 
 	void Update(Gun* pGun, float dt) override
 	{
+	}
+};
+
+class ActionReloading : public Action
+{
+	float mTime;
+	float mProgress = 0.f;
+
+public:
+	ActionReloading(float reloadTime)
+	{
+		mTime = reloadTime;
+	}
+
+	void Start(Gun* pGun) override
+	{
+		Print("Reloading...");
+	}
+
+	void Update(Gun* pGun, float dt) override
+	{
+		mProgress += dt;
+		if (mProgress < mTime)
+			return;
+
+		pGun->mAmmo = pGun->mCapacity;
+		mProgress = 0.0f;
+
+		pGun->TransitionTo(Gun::State::Full);
+	}
+};
+
+class ActionUnloading : public Action
+{
+	float mTime;
+	float mProgress = 0.f;
+
+public:
+	ActionUnloading(float time)
+	{
+		mTime = time;
+	}
+
+	void Start(Gun* pGun) override
+	{
+		Print("Unloading...");
+	}
+
+	void Update(Gun* pGun, float dt) override
+	{
+		mProgress += dt;
+		if (mProgress < mTime)
+			return;
+
+		mProgress = 0.0f;
+
+		pGun->mAmmo = 0;
+
+		pGun->TransitionTo(Gun::State::Empty);
 	}
 };
