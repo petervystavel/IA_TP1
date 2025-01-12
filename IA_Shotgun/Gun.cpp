@@ -34,7 +34,7 @@ Gun::Gun(int capacity, float reloadTime, float shootTime)
 	SetTransition(State::Reloading, State::Full, true);
 
 	//Init
-	TransitionTo(State::Full);
+	SetState(State::Full);
 }
 
 void Gun::Update(float deltaTime)
@@ -42,7 +42,7 @@ void Gun::Update(float deltaTime)
 	mActions[(int)mState]->Update(this, deltaTime);
 }
 
-bool Gun::TransitionTo(State newState)
+bool Gun::SetState(State newState)
 {
     if (mTransitions[(int)mState][(int)newState])
     {
