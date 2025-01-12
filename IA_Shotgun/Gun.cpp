@@ -49,7 +49,7 @@ void Gun::Update(float deltaTime)
             mReloadProgress = 0.0f;
 
             Print("Ready to shoot, Ammo: " + std::to_string(mAmmo));
-            TransitionTo(State::Full);
+            SetState(State::Full);
         }
     }
     else if (mState == State::Shooting)
@@ -61,18 +61,18 @@ void Gun::Update(float deltaTime)
             if (mAmmo > 0)
             {
                 Print("Ready to shoot, Ammo: " + std::to_string(mAmmo));
-                TransitionTo(State::Loaded);
+                SetState(State::Loaded);
             }
             else
             {
                 Print("Empty!");
-                TransitionTo(State::Empty);
+                SetState(State::Empty);
             }
         }
     }
 }
 
-bool Gun::TransitionTo(State newState)
+bool Gun::SetState(State newState)
 {
     if (mTransitions[(int)mState][(int)newState])
     {
@@ -85,7 +85,7 @@ bool Gun::TransitionTo(State newState)
 
 bool Gun::Shoot()
 {
-    if (TransitionTo(State::Shooting) == false)
+    if (SetState(State::Shooting) == false)
         return false;
 
     Print("Bang!");
@@ -97,7 +97,7 @@ bool Gun::Shoot()
 
 bool Gun::Reload()
 {
-    if (TransitionTo(State::Reloading) == false)
+    if (SetState(State::Reloading) == false)
         return false;
 
     Print("Reloading...");

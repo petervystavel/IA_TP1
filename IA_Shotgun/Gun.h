@@ -40,7 +40,7 @@ public:
 
     void Update(float deltaTime);
 
-    bool TransitionTo(State newState);
+    bool SetState(State newState);
 
     bool Shoot();
 
