@@ -55,11 +55,11 @@ public:
 
 		if (pGun->mAmmo == 0)
 		{
-			pGun->TransitionTo(Gun::State::Empty);
+			pGun->SetState(Gun::State::Empty);
 		}
 		else
 		{
-			pGun->TransitionTo(Gun::State::Loaded);
+			pGun->SetState(Gun::State::Loaded);
 		}
 	}
 };
@@ -97,7 +97,7 @@ public:
 			return;
 
 		pGun->mAmmo = pGun->mCapacity;
-		pGun->TransitionTo(Gun::State::Full);
+		pGun->SetState(Gun::State::Full);
 	}
 };
 
@@ -134,6 +134,6 @@ public:
 			return;
 
 		pGun->mAmmo = 0;
-		pGun->TransitionTo(Gun::State::Empty);
+		pGun->SetState(Gun::State::Empty);
 	}
 };

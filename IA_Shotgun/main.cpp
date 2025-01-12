@@ -16,12 +16,12 @@ void HandleInput(Gun& gun, bool& running)
     {
     case 's':
     {
-		gun.TransitionTo(Gun::State::Shooting);
+		gun.SetState(Gun::State::Shooting);
         break;
     }
     case 'r':
     {
-		gun.TransitionTo(Gun::State::Reloading);
+		gun.SetState(Gun::State::Reloading);
         break;
     }
     case 'q':
@@ -31,7 +31,7 @@ void HandleInput(Gun& gun, bool& running)
     }
     case 'u':
     {
-		gun.TransitionTo(Gun::State::Unloading);
+		gun.SetState(Gun::State::Unloading);
 		break;
     }
     default:
