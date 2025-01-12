@@ -67,10 +67,10 @@ void Gun::Update(float deltaTime)
 
 bool Gun::Shoot()
 {
-    if (mIsReloading)
+    if (mIsShooting)
         return false;
 
-    if (mIsShooting)
+    if (mIsReloading)
         return false;
 
     if (mIsUnloading)
