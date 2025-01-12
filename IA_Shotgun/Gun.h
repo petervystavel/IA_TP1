@@ -38,7 +38,7 @@ public:
 
     void Update(float deltaTime);
 
-    bool TransitionTo(State newState);
+    bool SetState(State newState);
 
     friend class ActionFull;
     friend class ActionShooting;
