@@ -21,7 +21,7 @@ Gun::Gun(int capacity, float reloadTime, float shootTime)
 	{
 		for (int j = 0; j < STATE_COUNT; j++)
 		{
-			mTransitions[i][j] = 0;
+			mTransitions[i][j] = false;
 		}
 	}
 
