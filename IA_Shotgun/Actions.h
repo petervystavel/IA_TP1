@@ -43,6 +43,7 @@ public:
 	void Start(Gun* pGun) override
 	{
 		pGun->mAmmo--;
+		mProgress = 0.0f;
 
 		Print("Bang!");
 	}
@@ -53,7 +54,6 @@ public:
 		if (mProgress < mTime)
 			return;
 
-		mProgress = 0.0f;
 		if (pGun->mAmmo > 0)
 		{
 			pGun->SetState(Gun::State::Loaded);
@@ -105,6 +105,8 @@ public:
 
 	void Start(Gun* pGun) override
 	{
+		mProgress = 0.0f;
+
 		Print("Reloading...");
 	}
 
@@ -115,7 +117,6 @@ public:
 			return;
 
 		pGun->mAmmo = pGun->mCapacity;
-		mProgress = 0.0f;
 
 		pGun->SetState(Gun::State::Full);
 	}
@@ -134,6 +135,8 @@ public:
 
 	void Start(Gun* pGun) override
 	{
+		mProgress = 0.0f;
+
 		Print("Unloading...");
 	}
 
@@ -142,8 +145,6 @@ public:
 		mProgress += dt;
 		if (mProgress < mTime)
 			return;
-
-		mProgress = 0.0f;
 
 		pGun->mAmmo = 0;
 
