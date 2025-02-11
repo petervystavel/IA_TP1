@@ -65,7 +65,7 @@ bool Gun::Shoot()
 
     mIsShooting = true;
     mAmmo--;
-    mReloadProgress = 0.f;
+    mShootProgress = 0.f;
 
     return true;
 }
@@ -84,7 +84,7 @@ bool Gun::Reload()
     Print("Reloading...");
 
     mIsReloading = true;
-    mShootProgress = 0.f;
+    mReloadProgress = 0.f;
 
     return true;
 }
