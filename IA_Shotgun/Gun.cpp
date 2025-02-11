@@ -46,7 +46,6 @@ void Gun::Update(float deltaTime)
         if (mReloadProgress >= mReloadTime)
         {
             mAmmo = mCapacity;
-            mReloadProgress = 0.0f;
 
             Print("Ready to shoot, Ammo: " + std::to_string(mAmmo));
             SetState(State::Full);
@@ -57,7 +56,6 @@ void Gun::Update(float deltaTime)
         mShootProgress += deltaTime;
         if (mShootProgress >= mShootTime)
         {
-            mShootProgress = 0.0f;
             if (mAmmo > 0)
             {
                 Print("Ready to shoot, Ammo: " + std::to_string(mAmmo));
@@ -91,6 +89,7 @@ bool Gun::Shoot()
     Print("Bang!");
 
     mAmmo--;
+    mShootProgress = 0.0f;
 
     return true;
 }
@@ -101,6 +100,8 @@ bool Gun::Reload()
         return false;
 
     Print("Reloading...");
+
+    mReloadProgress = 0.0f;
 
     return true;
 }
